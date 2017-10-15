@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.Comment" >
+    <id column="commentId" property="commentid" jdbcType="INTEGER" />
+    <result column="commentText" property="commenttext" jdbcType="VARCHAR" />
+    <result column="commenterId" property="commenterid" jdbcType="INTEGER" />
+    <result column="saleGoodsId" property="salegoodsid" jdbcType="INTEGER" />
+    <result column="commentTime" property="commenttime" jdbcType="DATE" />
+    <result column="commentFlag" property="commentflag" jdbcType="BIT" />
+    <result column="buyGoodsId" property="buygoodsid" jdbcType="INTEGER" />
+    <result column="readFlag" property="readflag" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commentId, commentText, commenterId, saleGoodsId, commentTime, commentFlag, buyGoodsId, 
+    readFlag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectByCommenterId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from comments
+        where commenterId = #{commenterId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserIdAndGoodsId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+        select
+        <include refid="Base_Column_List" />
+        from comments
+        where commenterId = #{commenterId,jdbcType=INTEGER}
+        and saleGoodsId = #{saleGoodsId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectBySaleGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from comments
+        where saleGoodsId = #{saleGoodsId,jdbcType=INTEGER}
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comments
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="delete" parameterType="Dao.model.Comment" >
+        delete from comments
+        where commentId = #{commentid,jdbcType=INTEGER}
+    </delete>
+
+  <insert id="insert" parameterType="Dao.model.Comment" >
+    insert into comments (commentId, commentText, commenterId, 
+      saleGoodsId, commentTime, commentFlag, 
+      buyGoodsId, readFlag)
+    values (#{commentid,jdbcType=INTEGER}, #{commenttext,jdbcType=VARCHAR}, #{commenterid,jdbcType=INTEGER}, 
+      #{salegoodsid,jdbcType=INTEGER}, #{commenttime,jdbcType=DATE}, #{commentflag,jdbcType=BIT}, 
+      #{buygoodsid,jdbcType=INTEGER}, #{readflag,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.Comment" >
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        commentId,
+      </if>
+      <if test="commenttext != null" >
+        commentText,
+      </if>
+      <if test="commenterid != null" >
+        commenterId,
+      </if>
+      <if test="salegoodsid != null" >
+        saleGoodsId,
+      </if>
+      <if test="commenttime != null" >
+        commentTime,
+      </if>
+      <if test="commentflag != null" >
+        commentFlag,
+      </if>
+      <if test="buygoodsid != null" >
+        buyGoodsId,
+      </if>
+      <if test="readflag != null" >
+        readFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentid != null" >
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="commenttext != null" >
+        #{commenttext,jdbcType=VARCHAR},
+      </if>
+      <if test="commenterid != null" >
+        #{commenterid,jdbcType=INTEGER},
+      </if>
+      <if test="salegoodsid != null" >
+        #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="commenttime != null" >
+        #{commenttime,jdbcType=DATE},
+      </if>
+      <if test="commentflag != null" >
+        #{commentflag,jdbcType=BIT},
+      </if>
+      <if test="buygoodsid != null" >
+        #{buygoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="readflag != null" >
+        #{readflag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.Comment" >
+    update comments
+    <set >
+      <if test="commenttext != null" >
+        commentText = #{commenttext,jdbcType=VARCHAR},
+      </if>
+      <if test="commenterid != null" >
+        commenterId = #{commenterid,jdbcType=INTEGER},
+      </if>
+      <if test="salegoodsid != null" >
+        saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="commenttime != null" >
+        commentTime = #{commenttime,jdbcType=DATE},
+      </if>
+      <if test="commentflag != null" >
+        commentFlag = #{commentflag,jdbcType=BIT},
+      </if>
+      <if test="buygoodsid != null" >
+        buyGoodsId = #{buygoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="readflag != null" >
+        readFlag = #{readflag,jdbcType=BIT},
+      </if>
+    </set>
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.Comment" >
+    update comments
+    set commentText = #{commenttext,jdbcType=VARCHAR},
+      commenterId = #{commenterid,jdbcType=INTEGER},
+      saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      commentTime = #{commenttime,jdbcType=DATE},
+      commentFlag = #{commentflag,jdbcType=BIT},
+      buyGoodsId = #{buygoodsid,jdbcType=INTEGER},
+      readFlag = #{readflag,jdbcType=BIT}
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+   http://www.springframework.org/schema/security
+   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    <beans:import resource="spring-mybatis.xml"/>
+
+    <!--<http auto-config="true" access-denied-page="/home">-->
+        <!--<form-login login-processing-url="/login/result"-->
+                    <!--login-page="/home"-->
+                    <!--authentication-failure-url="/"/>-->
+        <!--<logout invalidate-session="true" logout-success-url="/" logout-url="/logout"/>-->
+    <!--</http>-->
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<jdbc-user-service data-source-ref="dataSource" users-by-username-query=-->
+                    <!--"select userName as username ,passWord as password,true from users where userName = ?"-->
+                               <!--authorities-by-username-query="select userName as username ,authority from userauthorities where userName = ?"/>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+</beans:beans>

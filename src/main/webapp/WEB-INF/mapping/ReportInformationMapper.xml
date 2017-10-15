@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.ReportInformationMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.ReportInformation" >
+    <id column="informationId" property="informationid" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="saleGoodsId" property="salegoodsid" jdbcType="INTEGER" />
+    <result column="reportTime" property="reporttime" jdbcType="INTEGER" />
+    <result column="reporterId" property="reporterid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    informationId, description, saleGoodsId, reportTime, reporterId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reportinformation
+    where informationId = #{informationid,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectSaleGoodsGroup" resultType="java.lang.Integer">
+        select
+        salegoodsid
+        from reportinformation
+    </select>
+
+    <select id="selectSaleGoodsGroupMap" resultType="java.util.HashMap">
+        select
+        salegoodsid , count (salegoodsid)
+        from reportinformation group by salegoodsid
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reportinformation
+    where informationId = #{informationid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Dao.model.ReportInformation" >
+    insert into reportinformation (informationId, description, saleGoodsId, 
+      reportTime, reporterId)
+    values (#{informationid,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{salegoodsid,jdbcType=INTEGER}, 
+      #{reporttime,jdbcType=INTEGER}, #{reporterid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.ReportInformation" >
+    insert into reportinformation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="informationid != null" >
+        informationId,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="salegoodsid != null" >
+        saleGoodsId,
+      </if>
+      <if test="reporttime != null" >
+        reportTime,
+      </if>
+      <if test="reporterid != null" >
+        reporterId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="informationid != null" >
+        #{informationid,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="salegoodsid != null" >
+        #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="reporttime != null" >
+        #{reporttime,jdbcType=INTEGER},
+      </if>
+      <if test="reporterid != null" >
+        #{reporterid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.ReportInformation" >
+    update reportinformation
+    <set >
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="salegoodsid != null" >
+        saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="reporttime != null" >
+        reportTime = #{reporttime,jdbcType=INTEGER},
+      </if>
+      <if test="reporterid != null" >
+        reporterId = #{reporterid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where informationId = #{informationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.ReportInformation" >
+    update reportinformation
+    set description = #{description,jdbcType=VARCHAR},
+      saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      reportTime = #{reporttime,jdbcType=INTEGER},
+      reporterId = #{reporterid,jdbcType=INTEGER}
+    where informationId = #{informationid,jdbcType=INTEGER}
+  </update>
+</mapper>

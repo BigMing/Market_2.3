@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.HotGoodsMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.HotGoods" >
+    <id column="hotGoodsId" property="hotgoodsid" jdbcType="INTEGER" />
+    <result column="saleGoodsId" property="salegoodsid" jdbcType="INTEGER" />
+    <result column="hotGoodsImage" property="hotgoodsimage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hotGoodsId, saleGoodsId, hotGoodsImage
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotgoods
+    where hotGoodsId = #{hotgoodsid,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectBySaleGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from hotgoods
+        where SaleGoodsId = #{SaleGoodsId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from hotgoods
+    </select>
+
+    <delete id="deleteAll">
+        delete from hotgoods
+    </delete>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotgoods
+    where hotGoodsId = #{hotgoodsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Dao.model.HotGoods" >
+    insert into hotgoods (hotGoodsId, saleGoodsId, hotGoodsImage
+      )
+    values (#{hotgoodsid,jdbcType=INTEGER}, #{salegoodsid,jdbcType=INTEGER}, #{hotgoodsimage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.HotGoods" >
+    insert into hotgoods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotgoodsid != null" >
+        hotGoodsId,
+      </if>
+      <if test="salegoodsid != null" >
+        saleGoodsId,
+      </if>
+      <if test="hotgoodsimage != null" >
+        hotGoodsImage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotgoodsid != null" >
+        #{hotgoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="salegoodsid != null" >
+        #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="hotgoodsimage != null" >
+        #{hotgoodsimage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.HotGoods" >
+    update hotgoods
+    <set >
+      <if test="salegoodsid != null" >
+        saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="hotgoodsimage != null" >
+        hotGoodsImage = #{hotgoodsimage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotGoodsId = #{hotgoodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.HotGoods" >
+    update hotgoods
+    set saleGoodsId = #{salegoodsid,jdbcType=INTEGER},
+      hotGoodsImage = #{hotgoodsimage,jdbcType=VARCHAR}
+    where hotGoodsId = #{hotgoodsid,jdbcType=INTEGER}
+  </update>
+</mapper>

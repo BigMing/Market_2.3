@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.SecondDirectoryMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.SecondDirectory" >
+    <id column="sDId" property="sdid" jdbcType="INTEGER" />
+    <result column="sDName" property="sdname" jdbcType="VARCHAR" />
+    <result column="fDId" property="fdid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sDId, sDName, fDId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seconddirectory
+    where sDId = #{sdid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from seconddirectory
+    where sDId = #{sdid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Dao.model.SecondDirectory" >
+    insert into seconddirectory (sDId, sDName, fDId
+      )
+    values (#{sdid,jdbcType=INTEGER}, #{sdname,jdbcType=VARCHAR}, #{fdid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.SecondDirectory" >
+    insert into seconddirectory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sdid != null" >
+        sDId,
+      </if>
+      <if test="sdname != null" >
+        sDName,
+      </if>
+      <if test="fdid != null" >
+        fDId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sdid != null" >
+        #{sdid,jdbcType=INTEGER},
+      </if>
+      <if test="sdname != null" >
+        #{sdname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdid != null" >
+        #{fdid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.SecondDirectory" >
+    update seconddirectory
+    <set >
+      <if test="sdname != null" >
+        sDName = #{sdname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdid != null" >
+        fDId = #{fdid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sDId = #{sdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.SecondDirectory" >
+    update seconddirectory
+    set sDName = #{sdname,jdbcType=VARCHAR},
+      fDId = #{fdid,jdbcType=INTEGER}
+    where sDId = #{sdid,jdbcType=INTEGER}
+  </update>
+</mapper>

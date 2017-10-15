@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.FirstDirectoryMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.FirstDirectory" >
+    <id column="fDId" property="fdid" jdbcType="INTEGER" />
+    <result column="fDName" property="fdname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fDId, fDName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from firstdirectory
+    where fDId = #{fdid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from firstdirectory
+    where fDId = #{fdid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Dao.model.FirstDirectory" >
+    insert into firstdirectory (fDId, fDName)
+    values (#{fdid,jdbcType=INTEGER}, #{fdname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.FirstDirectory" >
+    insert into firstdirectory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fdid != null" >
+        fDId,
+      </if>
+      <if test="fdname != null" >
+        fDName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fdid != null" >
+        #{fdid,jdbcType=INTEGER},
+      </if>
+      <if test="fdname != null" >
+        #{fdname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.FirstDirectory" >
+    update firstdirectory
+    <set >
+      <if test="fdname != null" >
+        fDName = #{fdname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fDId = #{fdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.FirstDirectory" >
+    update firstdirectory
+    set fDName = #{fdname,jdbcType=VARCHAR}
+    where fDId = #{fdid,jdbcType=INTEGER}
+  </update>
+</mapper>

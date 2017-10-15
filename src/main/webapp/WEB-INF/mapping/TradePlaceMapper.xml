@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.dao.TradePlaceMapper" >
+  <resultMap id="BaseResultMap" type="Dao.model.TradePlace" >
+    <id column="tradePlaceId" property="tradeplaceid" jdbcType="INTEGER" />
+    <result column="tradePlace" property="tradeplace" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tradePlaceId, tradePlace
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tradeplaces
+    where tradePlaceId = #{tradeplaceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tradeplaces
+    where tradePlaceId = #{tradeplaceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Dao.model.TradePlace" >
+    insert into tradeplaces (tradePlaceId, tradePlace)
+    values (#{tradeplaceid,jdbcType=INTEGER}, #{tradeplace,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Dao.model.TradePlace" >
+    insert into tradeplaces
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tradeplaceid != null" >
+        tradePlaceId,
+      </if>
+      <if test="tradeplace != null" >
+        tradePlace,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tradeplaceid != null" >
+        #{tradeplaceid,jdbcType=INTEGER},
+      </if>
+      <if test="tradeplace != null" >
+        #{tradeplace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Dao.model.TradePlace" >
+    update tradeplaces
+    <set >
+      <if test="tradeplace != null" >
+        tradePlace = #{tradeplace,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tradePlaceId = #{tradeplaceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Dao.model.TradePlace" >
+    update tradeplaces
+    set tradePlace = #{tradeplace,jdbcType=VARCHAR}
+    where tradePlaceId = #{tradeplaceid,jdbcType=INTEGER}
+  </update>
+</mapper>
